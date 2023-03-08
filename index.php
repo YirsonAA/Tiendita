@@ -1,4 +1,13 @@
 <?php
+//Se inicia la sesion en php para guradar si el usuario ya esta logueado o no
+session_start();
+//Validamos si el usuario ya inicio su sesion lo redireccionamos hacia el dashboard para mostrar su usuario y email
+if(isset($_SESSION["user"])==true){
+    //Redireccionamos hacia dashboard
+    header("Location: dashboard.php");
+    //Matamos esto para evitar que se ejecute lo de mas abajo
+    die();
+}
 //la variable localhost nos da la ubicacion en la maquina donde esta la base de datos
 $host="localhost";
 // db es el nombre de la base de datos
@@ -7,7 +16,6 @@ $db="tiendita";
 $user="root";
 // Aca es donde guardo la informacion del la clave.
 $pass="";
-/
 //conn es donde tengo la conexion.
 $conn = new mysqli($host,$user ,$pass , $db);
 //Si se ingresa una clave incorrectano habria coneccion por lo cual nos daria un mensaje con Error de conexion
@@ -24,13 +32,21 @@ $registrado = FALSE;
 foreach ($result as $row) {
 //Si llego a entrar el ciclo registrado va ser verdadero
     $registrado = TRUE;
+    //Guardamos el ususario y el email en la sesion para validar que ya se registro
+    $_SESSION["user"] = $row["user"];
+    $_SESSION["email"] = $row["email"];
+    //Detenemos el ciclo foreach
+    break;
 }
 //aca si registrado es verdadero sale un mensaje de Registrado Exitosamente
 if ($registrado == TRUE){
     echo "Registrado Exitosamente";
-    
+    //Redireccionamos hacia dashboard
+    header("Location: dashboard.php");
 }
 //y si no es correcto saldria Usiario no valido.
 else {
     echo "Usuario no valido";
+    //Redireccionamos hacia dashboard
+    header("Location: usuario-no-valido.php");
 }

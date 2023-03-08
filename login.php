@@ -8,9 +8,14 @@
 </head>
 <body>
     <form action="index.php" method="post">
-        <input type="text" name="user" placeholder="user">
-        <input type="text" name="pass" placeholder="pass">
-        <input type="submit" value="enviar">
+        <div style="text-align: center;">
+        Ingrese su usuario y contraseña
+        </div>
+        <div style="text-align: center;">
+            <input type="text" name="user" placeholder="user">
+            <input type="password" name="pass" placeholder="pass">
+            <input type="submit" value="enviar">
+        </div>
     </form>
 </body>
 </html>
